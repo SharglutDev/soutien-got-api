@@ -24,6 +24,7 @@ function App() {
       .then((response) => {
         listHerosParent = response.data;
         setTabHeros(response.data);
+        console.log(response.data);
       });
   }, []);
 
@@ -31,11 +32,12 @@ function App() {
     let tabHeroFilter = [...listHerosParent];
 
     if (tabCheckHouse.length > 0) {
-      tabHeroFilter = tabHeroFilter.filter((hero) =>
-        tabCheckHouse.includes(hero.house?.name)
+      tabHeroFilter = tabHeroFilter.filter(
+        (hero) =>
+          tabCheckHouse.includes(hero.house?.name) ||
+          (tabCheckHouse.includes("") && hero.house === null)
       );
     }
-
     setTabHeros(tabHeroFilter);
   };
 
@@ -55,7 +57,6 @@ function App() {
             key={perso.name}
             style={{
               width: "22%",
-
               border: "3px solid blue",
               margin: "20px",
               borderRadius: "10px",
